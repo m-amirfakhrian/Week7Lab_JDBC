@@ -9,6 +9,6 @@ package services;
  *
  * @author Majid
  */
-public class RoleServices {
+public class UserService {
     
 }
