@@ -24,7 +24,7 @@ public class UserServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             //String email = (String) session.getAttribute("email");
-            List<User> users = us.getAll();
+            List<User> users = us.getAllUsers();
             request.setAttribute("users", users);
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -35,7 +35,7 @@ public class UserServlet extends HttpServlet {
         if (action != null && action.equals("view")) {
             try {
                 int id = Integer.parseInt(request.getParameter("noteId"));
-                User user = ns.get(id);
+                User user = us.getUser(id);
                 request.setAttribute("selectedUser", user);
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -80,7 +80,7 @@ public class UserServlet extends HttpServlet {
         }
 
         try {
-            List<User> notes = us.getAll();
+            List<User> notes = us.getAllUsers();
             request.setAttribute("users", users);
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);

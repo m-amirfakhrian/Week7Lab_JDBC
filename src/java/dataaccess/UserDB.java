@@ -14,20 +14,18 @@ import models.Role;
  */
 public class UserDB {
 
-    public List<User> getAll() throws Exception {
+    public List<User> getAllUsers() throws Exception {
         List<User> users = new ArrayList<>();
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
-        ResultSet rs = null;
-        PreparedStatement ps2 = null;
-        ResultSet rs2 = null;
+        ResultSet rs = null;        
+        RoleDB roleDB = new RoleDB();
         
-        String sql = "SELECT * FROM user";
-        String sqlRole = "SELECT role_name FROM role WHERE role_id=?";
+        String sqlRole = "SELECT role_name FROM role WHERE role_id=?";      
         
         try {
-            ps = con.prepareStatement(sql);            
+            ps = con.prepareStatement(sqlRole);            
             rs = ps.executeQuery();
             while (rs.next()) {                
                 String email = rs.getString(1);
@@ -35,25 +33,16 @@ public class UserDB {
                 String lastName = rs.getString(3);
                 String password = rs.getString(4);
                 int roleID = rs.getInt(5);
-                
-                    ps2 = con.prepareStatement(sqlRole);            
-                    rs2 = ps.executeQuery();
-                    ps2.setInt(1, roleID);
-                    String roleName = rs2.getString(1);
-                    Role role = new Role(roleID,roleName);
-                    User user = new User(email, firstName, lastName, password, role);
-                    users.add(user);    
+                String roleName = roleDB.roleString(roleID);   
+                Role role = new Role(roleID,roleName);
+                User user = new User(email, firstName, lastName, password, role);
+                users.add(user);    
             }
         } finally {
             DBUtil.closeResultSet(rs);
-            DBUtil.closePreparedStatement(ps);
-            
-            DBUtil.closeResultSet(rs2);
-            DBUtil.closePreparedStatement(ps2);
-            
+            DBUtil.closePreparedStatement(ps);      
             cp.freeConnection(con);
         }
-
         return users;
     }
 
@@ -61,12 +50,10 @@ public class UserDB {
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
-        ResultSet rs = null;
-        PreparedStatement ps2 = null;
-        ResultSet rs2 = null;
-        String sql = "SELECT * FROM user WHERE email=?";
-        String sqlRole = "SELECT role_name FROM role WHERE role_id=?";
+        ResultSet rs = null;        
+        String sql = "SELECT * FROM user WHERE email=?";        
         User user = new User();
+        RoleDB role_db = new RoleDB();
         
         try {
             ps = con.prepareStatement(sql);            
@@ -76,21 +63,13 @@ public class UserDB {
                 String lastName = rs.getString(3);
                 String password = rs.getString(4);
                 int roleID = rs.getInt(5);
-                
-                    ps2 = con.prepareStatement(sqlRole);            
-                    rs2 = ps.executeQuery();
-                    ps2.setInt(1, roleID);
-                    String roleName = rs2.getString(1);
-                    Role role = new Role(roleID,roleName);
-                    user = new User(email, firstName, lastName, password, role);                     
+                String roleName = role_db.roleString(roleID);   
+                Role role = new Role(roleID,roleName);
+                user = new User(email, firstName, lastName, password, role);                  
             }
         } finally {
             DBUtil.closeResultSet(rs);
-            DBUtil.closePreparedStatement(ps);
-            
-            DBUtil.closeResultSet(rs2);
-            DBUtil.closePreparedStatement(ps2);
-            
+            DBUtil.closePreparedStatement(ps); 
             cp.freeConnection(con);
         }
          return user;

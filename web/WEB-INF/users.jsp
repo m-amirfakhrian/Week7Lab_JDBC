@@ -25,17 +25,54 @@
             <ul>
                 
             <c:forEach items="${user}" var="user">
-                <li><a href="notes?action=view&amp;noteId=${note.noteId}">${note.title}</a><br></li>
+                <li><a href="users?action=view&amp;email=${user.email}">${user.firstName}</a><br></li>
             </c:forEach>
         </ul>
         <c:if test="${selectedUser eq null}">
             <h2>Add a New User</h2>
             <form action="users" method="post">
-                Email: <input type="text" name="email" value=""><br>
-                First Name: <input type="text" name="firstName" value=""><br>
-                Last Name: <input type="text" name="lastName" value=""><br>
-                Password: <input type="text" name="password" value=""><br>
-                Role: <input type="text" name="role" value=""><br> 
+                <table>
+                    <tr>
+                        <td>
+                            Email:
+                        </td>
+                        <td>
+                            <input type="text" name="email" value=""><br> 
+                        </td>                      
+                    </tr>
+                    <tr>
+                        <td>
+                            First Name:
+                        </td>
+                        <td>
+                            <input type="text" name="email" value=""><br> 
+                        </td>                      
+                    </tr>
+                    <tr>
+                        <td>
+                            Last Name:
+                        </td>
+                        <td>
+                            <input type="text" name="email" value=""><br> 
+                        </td>                      
+                    </tr>
+                    <tr>
+                        <td>
+                            Password:
+                        </td>
+                        <td>
+                            <input type="text" name="email" value=""><br> 
+                        </td>                      
+                    </tr>
+                    <tr>
+                        <td>
+                            Role:
+                        </td>
+                        <td>
+                            <input type="text" name="email" value=""><br> 
+                        </td>                      
+                    </tr>
+                </table>
                  <input type="submit" value="Add user" >
                 <input type="hidden" name="action" value="add">
             </form>
@@ -43,18 +80,55 @@
         <c:if test="${selectedUser ne null}">
             <h2>Edit the Selected User</h2>
             <form action="users" method="post">
-                Email: <input type="text" name="email" value="${selectedUser.email}"><br>
-                First Name: <input type="text" name="firstName" value="${selectedUser.firstName}"><br>
-                Last Name: <input type="text" name="lastName" value="${selectedUser.lastName}"><br>
-                Password: <input type="text" name="password" value="${selectedUser.password}"><br>
-                Role: <input type="text" name="role" value=""><br> 
-                 <input type="submit" value="Update" >
+                <table>
+                    <tr>
+                        <td>
+                            Email:
+                        </td>
+                        <td>
+                            <input type="text" name="email" value="${selectedUser.email}"><br> 
+                        </td>                      
+                    </tr>
+                    <tr>
+                        <td>
+                            First Name:
+                        </td>
+                        <td>
+                            <input type="text" name="email" value="${selectedUser.firstName}"><br> 
+                        </td>                      
+                    </tr>
+                    <tr>
+                        <td>
+                            Last Name:
+                        </td>
+                        <td>
+                            <input type="text" name="email" value="${selectedUser.lastName}"><br> 
+                        </td>                      
+                    </tr>
+                    <tr>
+                        <td>
+                            Password:
+                        </td>
+                        <td>
+                            <input type="text" name="email" value="${selectedUser.password}"><br> 
+                        </td>                      
+                    </tr>
+                    <tr>
+                        <td>
+                            Role:
+                        </td>
+                        <td>
+                            <input type="text" name="email" value="${selectedUser.role}"><br> 
+                        </td>                      
+                    </tr>
+                </table>
+                <input type="submit" value="Update" >
                 <input type="hidden" name="action" value="add">
             </form>            
 
             <form action="users" method="post">
                 <input type="hidden" name="action" value="Cancel">
-                <input type="hidden" name="noteId" value="${selectedNote.noteId}">
+                <input type="hidden" name="noteId" value="${selectedUser.email}">
                 <input type="submit" value="Cancel">
             </form>
             <a href="notes">cancel edit</a>
