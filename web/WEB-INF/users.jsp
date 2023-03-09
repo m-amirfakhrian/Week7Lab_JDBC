@@ -22,12 +22,52 @@
             <c:if test="${message eq 'delete'}">User deleted</c:if>
             <c:if test="${message eq 'error'}">Sorry, something went wrong.</c:if>
             </p>
-            <ul>
-                
-            <c:forEach items="${user}" var="user">
-                <li><a href="users?action=view&amp;email=${user.email}">${user.firstName}</a><br></li>
-            </c:forEach>
-        </ul>
+            
+            
+            <c:if test="${users ne null}">
+            <form action="user" method="post">
+            <table>            
+                <tr>
+                    <th>Email</th>
+                    <th>First Name</th>
+                    <th>Last Name</th> 
+                    <th>Role</th>                      
+                    <th>Edit</th>
+                    <th>Delete</th>    
+                </tr>
+                <c:forEach items="${users}" var="user">
+                    <tr>
+                        <td>
+                            <c:out value = "${user.email}"/>
+                        </td>
+                        <td>
+                            <c:out value = "${user.firstname}"/>
+                        </td>
+                        <td>
+                            <c:out value = "${user.lastname}"/>
+                        </td>
+                        <td>
+                            <c:out value = "${user.roleName}"/>
+                        </td>  
+                        <td>
+                            <form  method="post"> 
+                                <input type="hidden" name="editUser" value="${user.email}">
+                                <input type="submit" value="Edit">
+                                <input type="hidden" name="action" value="showEdit">
+                            </form>
+                        </td>
+                        <td>
+                            <form action="?action=delete" method="post">
+                                <input type="hidden" name="deleteUser" value="${user.email}">
+                                <input type="submit" name="action" value="Delete">
+                            </form>
+                        </td>
+                    </tr> 
+                </c:forEach>
+            </table>
+        </form>
+            </c:if>
+            
         <c:if test="${selectedUser eq null}">
             <h2>Add a New User</h2>
             <form action="users" method="post">
@@ -45,7 +85,7 @@
                             First Name:
                         </td>
                         <td>
-                            <input type="text" name="email" value=""><br> 
+                            <input type="text" name="firstName" value=""><br> 
                         </td>                      
                     </tr>
                     <tr>
@@ -53,7 +93,7 @@
                             Last Name:
                         </td>
                         <td>
-                            <input type="text" name="email" value=""><br> 
+                            <input type="text" name="lastName" value=""><br> 
                         </td>                      
                     </tr>
                     <tr>
@@ -61,7 +101,7 @@
                             Password:
                         </td>
                         <td>
-                            <input type="text" name="email" value=""><br> 
+                            <input type="text" name="password" value=""><br> 
                         </td>                      
                     </tr>
                     <tr>
@@ -69,8 +109,11 @@
                             Role:
                         </td>
                         <td>
-                            <input type="text" name="email" value=""><br> 
-                        </td>                      
+                        <select name="role">
+                            <option value="1">system admin</option>
+                            <option value="2">regular user</option>                            
+                        </select>
+                    </td>                      
                     </tr>
                 </table>
                  <input type="submit" value="Add user" >
@@ -118,7 +161,7 @@
                             Role:
                         </td>
                         <td>
-                            <input type="text" name="email" value="${selectedUser.role}"><br> 
+                            <input type="text" name="email" value="${selectedUser.role.role_name}"><br> 
                         </td>                      
                     </tr>
                 </table>
@@ -128,7 +171,7 @@
 
             <form action="users" method="post">
                 <input type="hidden" name="action" value="Cancel">
-                <input type="hidden" name="noteId" value="${selectedUser.email}">
+                <input type="hidden" name="email" value="${selectedUser.email}">
                 <input type="submit" value="Cancel">
             </form>
             <a href="notes">cancel edit</a>

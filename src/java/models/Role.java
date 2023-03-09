@@ -15,11 +15,11 @@ public class Role implements Serializable {
         this.role_name = role_name;
     }
 
-    public int getRole_id() {
+    public int getRoleID() {
         return role_id;
     }
 
-    public void setRole_id(int role_id) {
+    public void setRoleID(int role_id) {
         this.role_id = role_id;
     }
 

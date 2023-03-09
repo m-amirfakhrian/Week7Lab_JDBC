@@ -1,9 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package services;
+
+import dataaccess.RoleDB;
+import java.util.ArrayList;
+import java.util.List;
+import models.Role;
 
 /**
  *
@@ -11,4 +11,17 @@ package services;
  */
 public class RoleService {
     
+
+    public String getRoleName(int roleID) throws Exception {
+        RoleDB roleDB = new RoleDB();
+        String roleName = roleDB.roleString(roleID);   
+        return roleName;
+    }
+
+    public int getRoleID(String roleName) throws Exception {
+        RoleDB roleDB = new RoleDB();
+        int roleID = roleDB.roleID(roleName);   
+        return roleID;
+    }
+
 }

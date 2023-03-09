@@ -106,7 +106,7 @@ public class UserDB {
             ps.setString(1, user.getFirstName());
             ps.setString(2, user.getLastName());
             ps.setString(3, user.getPassword());
-            ps.setInt(4, user.getRole().getRole_id());
+            ps.setInt(4, user.getRole().getRoleID());
             ps.setString(5, user.getEmail());
             ps.executeUpdate();
         } finally {
