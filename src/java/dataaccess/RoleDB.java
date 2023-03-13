@@ -24,10 +24,12 @@ public class RoleDB {
         String sqlRole = "SELECT role_name FROM role WHERE role_id=?";
         
         try {     
-            ps2 = con.prepareStatement(sqlRole);            
-            rs2 = ps2.executeQuery();
+            ps2 = con.prepareStatement(sqlRole); 
             ps2.setInt(1, roleID);
-            roleName = rs2.getString(1);
+            rs2 = ps2.executeQuery();   
+            if(rs2.next()){
+                roleName = rs2.getString(1);
+            }
         } finally { 
             DBUtil.closeResultSet(rs2);
             DBUtil.closePreparedStatement(ps2);            

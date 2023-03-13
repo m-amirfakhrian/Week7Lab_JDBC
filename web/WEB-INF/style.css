@@ -1,0 +1,104 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 13, 2023, 10:24:49 AM
+    Author     : Majid
+*/
+
+
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap');
+
+@media all {
+	body {
+		background-color: #FFE4C4;
+		/* background-image:url("a1.jpg");*/
+		background-repeat:no-repeat;
+		background-position: center; /* 50px 200px*/
+		background-attachment: fixed;					
+		font-family: 'Merriweather', serif;					
+		font-size: 12px;
+	}
+
+	p{
+		font-size: 12px;	
+		text-align:left;			
+	}
+
+
+	h1 {
+		font-size: 50px;
+		text-align: center;					
+		font-style: italic;
+		/*letter-spacing: 5px;*/
+	}
+	
+	
+
+	.center {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 20%;
+	}
+
+	.left{
+		border:2px solid green;
+		float:left;
+		/*min-height:60px0;*/
+		margin-right:20px;
+		margin-bottom:20px;
+		/*padding:10px; */
+		/*background-color:cornsilk;*/
+		
+	}
+
+	.right{
+		border:2px solid red;
+		float:right;
+		/*min-height:60px0;*/
+		margin-left:20px;
+		margin-bottom:20px;
+		/*padding:10px; */
+		background-color:cornsilk;
+		
+	}
+
+
+
+	figure {
+		/*border: 1px solid;*/
+		width:100%;
+		/*padding: 4px;*/
+		margin: auto;
+	}
+
+	figcaption {
+		background-color: blue;
+		color: white;
+		font-style: italic;
+		padding: 10px;
+		text-align: center;
+	}
+
+	.two{
+		font-size: 20px;
+	}
+
+	.imgclass{
+		height: 300px;
+	}
+
+
+
+	.divClass{
+		width:90%; 
+		margin:auto; 
+	}		
+	
+	
+	
+
+}

@@ -12,6 +12,7 @@
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
                 <title>The Users</title>
+                <link rel="stylesheet" type="text/css" href="style.css">
             </head>
             <body>
 
@@ -22,15 +23,13 @@
                     <c:if test="${message eq 'delete'}">User deleted</c:if>
                     <c:if test="${message eq 'error'}">Sorry, something went wrong.</c:if>
                 </p>
-
-                <c:forEach items="${users}" var="user">
-                    <li><a href="notes?action=view&amp;email=${user.email}">${user.email}</a><br></li>
-                </c:forEach>
+               
 
                 
             <c:if test="${users ne null}">
                     <form action="view" method="get">
-                    <table>            
+                        <h2>List of users:</h2>
+                    <table border="1">            
                         <tr>
                             <th>Email</th>
                             <th>First Name</th>
@@ -45,14 +44,14 @@
                                     <c:out value = "${user.email}"/>
                                 </td>
                                 <td>
-                                    <c:out value = "${user.firstname}"/>
+                                    <c:out value = "${user.firstName}"/>
                                 </td>
                                 <td>
-                                    <c:out value = "${user.lastname}"/>
+                                    <c:out value = "${user.lastName}"/>
                                 </td>
-                                <td>
-                                    <c:out value = "${user.roleName}"/>
-                                </td>  
+                                 <td>
+                                    <c:out value = "${user.role.roleName}"/>
+                                </td>
                                 <td>
                                     <form  method="get"> 
                                         <input type="hidden" name="editUser" value="${user.email}">
@@ -61,10 +60,10 @@
                                     </form>
                                 </td>
                                 <td>
-                                    <form action="action=delete" method="get">
+                                    <form method="get">
                                         <input type="hidden" name="deleteUser" value="${user.email}">
                                         <input type="submit" value="Delete">
-                                        <input type="submit" name="action" value="Delete">
+                                        <input type="hidden" name="action" value="Delete">
                                     </form>
                                 </td>
                             </tr> 

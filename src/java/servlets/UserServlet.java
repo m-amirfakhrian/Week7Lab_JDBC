@@ -27,7 +27,7 @@ public class UserServlet extends HttpServlet {
             HttpSession session = request.getSession();
             //String email = (String) session.getAttribute("email");
             ArrayList<User> users = us.getAllUsers();
-            request.setAttribute("users", users);
+            request.setAttribute("users", users);            
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("message", "error");
@@ -38,7 +38,9 @@ public class UserServlet extends HttpServlet {
             try {
                 String email = request.getParameter("email");
                 User user = us.getUser(email);
-                request.setAttribute("selectedUser", user);
+                Role role = user.getRole();
+                request.setAttribute("selectedUser", user);                
+                request.setAttribute("roleName", role.getRoleName());
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
