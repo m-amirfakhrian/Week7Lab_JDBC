@@ -14,7 +14,7 @@ public class RoleService {
 
     public String getRoleName(int roleID) throws Exception {
         RoleDB roleDB = new RoleDB();
-        String roleName = roleDB.roleString(roleID);   
+        String roleName = roleDB.roleName(roleID);   
         return roleName;
     }
 

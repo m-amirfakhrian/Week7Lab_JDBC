@@ -14,7 +14,7 @@ import models.Role;
  */
 public class RoleDB {
 
-    public String roleString(int roleID) throws Exception {
+    public String roleName(int roleID) throws Exception {
                
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();        

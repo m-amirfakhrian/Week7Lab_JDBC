@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
+//import java.util.List;
 import models.User;
 import models.Role;
 
@@ -14,18 +14,18 @@ import models.Role;
  */
 public class UserDB {
 
-    public List<User> getAllUsers() throws Exception {
-        List<User> users = new ArrayList<>();
+    public ArrayList<User> getAllUsers() throws Exception {
+        ArrayList<User> users = new ArrayList<>();
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;        
         RoleDB roleDB = new RoleDB();
         
-        String sqlRole = "SELECT role_name FROM role WHERE role_id=?";      
+        String sql = "SELECT * FROM user";      
         
         try {
-            ps = con.prepareStatement(sqlRole);            
+            ps = con.prepareStatement(sql);            
             rs = ps.executeQuery();
             while (rs.next()) {                
                 String email = rs.getString(1);
@@ -33,7 +33,7 @@ public class UserDB {
                 String lastName = rs.getString(3);
                 String password = rs.getString(4);
                 int roleID = rs.getInt(5);
-                String roleName = roleDB.roleString(roleID);   
+                String roleName = roleDB.roleName(roleID);   
                 Role role = new Role(roleID,roleName);
                 User user = new User(email, firstName, lastName, password, role);
                 users.add(user);    
@@ -63,7 +63,7 @@ public class UserDB {
                 String lastName = rs.getString(3);
                 String password = rs.getString(4);
                 int roleID = rs.getInt(5);
-                String roleName = role_db.roleString(roleID);   
+                String roleName = role_db.roleName(roleID);   
                 Role role = new Role(roleID,roleName);
                 user = new User(email, firstName, lastName, password, role);                  
             }
@@ -87,7 +87,7 @@ public class UserDB {
             ps.setString(2, user.getFirstName());
             ps.setString(3, user.getLastName());
             ps.setString(4, user.getPassword());
-            ps.setString(5, user.getRole().getRole_name());
+            ps.setString(5, user.getRole().getRoleName());
             ps.executeUpdate();
         } finally {
             DBUtil.closePreparedStatement(ps);

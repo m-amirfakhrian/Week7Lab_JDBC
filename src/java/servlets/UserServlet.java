@@ -1,7 +1,8 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
+//import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -25,7 +26,7 @@ public class UserServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             //String email = (String) session.getAttribute("email");
-            List<User> users = us.getAllUsers();
+            ArrayList<User> users = us.getAllUsers();
             request.setAttribute("users", users);
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,23 +57,50 @@ public class UserServlet extends HttpServlet {
             
             UserService us = new UserService();
             RoleService rs = new RoleService();
-            
+            ArrayList<User> users = us.getAllUsers();
             // action must be one of: Add, Edit, Delete
             String action = request.getParameter("action");
             
             String email = (String) session.getAttribute("email");
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
-            String password = request.getParameter("password");
+            String password = request.getParameter("password");            
             String roleName = request.getParameter("roleName");
-            
+                       
+            String message="";
             int roleID = rs.getRoleID(roleName);
+            
             Role role = new Role(roleID, roleName);
             User user = new User(email, firstName, lastName, password, role);
             try {
                 switch (action) {
                     case "add":
-                        us.insert(user);
+                        if (email.equals(null) || email.equals("")
+                                || firstName.equals(null) || firstName.equals("")
+                                || lastName.equals(null) || lastName.equals("")
+                                || password.equals(null) || password.equals("")) {
+                            message = "At least one field did not correctly filled! Please fill out the form completely.";
+                            request.setAttribute("message", message);
+                        }else if (!users.isEmpty()) {
+                            boolean alreadyExist = false;
+                            int i = 0;
+                            while(i < users.size()&& alreadyExist==false){                                
+                                if (email.equals(users.get(i++).getEmail())) {
+                                    message = "The email already registered!!";
+                                    request.setAttribute("message", message);
+                                    alreadyExist = true;
+                                }
+                            }
+                            if (alreadyExist == false) {
+                                us.insert(user);
+                                message = "New user added.";
+                                request.setAttribute("message", message);
+                            }
+                        }else{
+                            us.insert(user);
+                            message = "New user added.";
+                            request.setAttribute("message", message);
+                        }                        
                         break;
                     case "update":
                         us.update(user);
@@ -87,7 +115,7 @@ public class UserServlet extends HttpServlet {
             }
 
             try {
-                List<User> users = us.getAllUsers();
+                users = us.getAllUsers();
                 request.setAttribute("users", users);
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -99,5 +127,5 @@ public class UserServlet extends HttpServlet {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
 }
