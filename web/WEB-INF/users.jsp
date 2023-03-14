@@ -15,16 +15,7 @@
                 <link rel="stylesheet" type="text/css" href="style.css">
             </head>
             <body>
-
-                <h1>Manage Users</h1>
-                <p>
-                    <c:if test="${message eq 'add'}">User created</c:if>
-                    <c:if test="${message eq 'update'}">User Edited</c:if>
-                    <c:if test="${message eq 'delete'}">User deleted</c:if>
-                    <c:if test="${message eq 'error'}">Sorry, something went wrong.</c:if>
-                </p>
-               
-
+      
                 
             <c:if test="${users ne null}">
                     <form action="view" method="get">

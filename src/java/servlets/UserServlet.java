@@ -25,6 +25,7 @@ public class UserServlet extends HttpServlet {
 
         try {
             HttpSession session = request.getSession();
+            String action = request.getParameter("action");
             //String email = (String) session.getAttribute("email");
             ArrayList<User> users = us.getAllUsers();
             request.setAttribute("users", users);            
@@ -106,11 +107,15 @@ public class UserServlet extends HttpServlet {
                         break;
                     case "update":
                         us.update(user);
+                        message = "User updated.";
+                        request.setAttribute("message", message);
                         break;
                     case "delete":
                         us.delete(user);
+                        message = "User deleted.";
+                        request.setAttribute("message", message);
                 }
-                request.setAttribute("message", action);
+                //request.setAttribute("message", action);
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
                 request.setAttribute("message", "error");
